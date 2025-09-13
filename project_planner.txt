@@ -1,0 +1,91 @@
+Overview:
+Classes and their responsibilities:
+main.py - starting point and game loop
+Player = player information and move decisions
+Board = grid management and piece placement
+GameController = game flow, turn management, and win detection
+Color = enum for piece types
+=========================================================
+
+planner:
+Chip/pieces:
+Color (Enum):
+Values:
+RED
+YELLOW
+EMPTY
+
+Purpose:
+represents piece types on the board
+simple and clean representation
+=========================================================
+Player:
+Properties:
+color (Color enum - RED or YELLOW)
+name (player's name)
+remainingPieces (count of pieces left to play)
+score (total rounds won)
+
+Methods:
+makeMove() - returns column number where player wants to drop piece
+getColor() - returns player's piece color
+getName() - returns player's name
+useAPiece() - decrements remaining piece count
+getRemainingPieces() - returns how many pieces left
+getScore() - returns current score
+addWin() - increments score when player wins a round
+resetForNewRound() - resets piece count for new round
+=========================================================
+Board:
+Properties:
+rows (int - typically 6)
+columns (int - typically 7)
+grid (2D array of Color enums)
+
+Methods:
+dropPiece(column, color) - places piece in lowest available row of column
+isColumnFull(column) - checks if column has space
+canDropInColumn(column) - validates if drop is possible
+getPiece(row, column) - returns what's at specific position
+displayBoard() - shows current board state
+isBoardFull() - checks if entire board is full (tie condition)
+resetBoard() - clears all pieces for new round
+=========================================================
+GameController:
+Properties:
+board (Board object)
+player1 (Player object)
+player2 (Player object)
+currentPlayer (Player object - whose turn it is)
+gameState (TurnResult enum value)
+targetScore (rounds needed to win overall game)
+maxRounds (optional round limit)
+
+Methods:
+startGame() - initializes game and players
+playRound() - handles one complete round, returns round winner
+playTurn() - handles one complete turn, returns TurnResult
+switchPlayer() - alternates between player1 and player2
+checkForWin(color) - detects 4-in-a-row (horizontal, vertical, diagonal)
+checkForTie() - determines if game is tied
+isRoundOver() - checks if current round has ended
+isGameOver() - checks if overall game has ended (target score reached)
+resetForNewRound() - prepares board and players for new round
+displayScores() - shows current round scores
+announceWinner() - displays final game winner
+=========================================================
+TurnResult (Enum):
+Values:
+INVALID_MOVE
+CONTINUE_GAME
+PLAYER1_WINS_ROUND
+PLAYER2_WINS_ROUND
+TIE_ROUND
+PLAYER1_WINS_GAME
+PLAYER2_WINS_GAME
+
+Purpose:
+communicates what happened during a turn/round
+guides main game loop decisions
+distinguishes between round wins and overall game wins
+=========================================================
